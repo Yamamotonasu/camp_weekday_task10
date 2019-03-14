@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-6 offset-md-3">
-    <h1 class="text-center mt-5">エリア登録</h1>
+    <h1 class="text-center">エリア登録</h1>
     <%= form_with model: @area, local: true do |f| %>
       <div class="Zipcpde">
         <%= f.label "郵便番号" %>
@@ -42,14 +42,3 @@
     <% end %>
   </div>
 </div>
-      <!-- リクエストパラメタを表示-->
-      リクエストパラメタ: <%= @query%>
-      </p>
-      <!-- 生のjsonを表示-->
-      result: <%= @result%>
-      </p>
-      <p>
-        <!-- エラーメッセージを表示-->
-      message: <%= @message%>
-      </p>
-      </div>

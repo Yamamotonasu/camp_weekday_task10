@@ -3,5 +3,4 @@ Rails.application.routes.draw do
   post '/areas/search', to: 'areas#form'
   post '/areas', to: 'areas#create'
   get '/areas/search', to: 'areas#search'
-  get '/areas/search', to: 'areas#form'
 end

@@ -1,7 +1,6 @@
 class AreasController < ApplicationController
 require 'net/http'
 require 'uri'
-require 'json'
 
   def index
     @areas = Area.all
@@ -40,7 +39,9 @@ require 'json'
         # responseのbody要素をJSON形式で解釈し、hashに変換
         @result = JSON.parse(response.body)
         # 表示用の変数に結果を格納
-      
+        if @result["status"] != 200
+          redirect_to areas_search_path, alert: "#{@result["message"]}"
+        end
         @area.zipcode = @result["results"][0]["zipcode"]
         @area.address1 = @result["results"][0]["address1"]
         @area.address2 = @result["results"][0]["address2"]
@@ -49,10 +50,6 @@ require 'json'
         @area.kana1 = @result["results"][0]["kana1"]
         @area.kana2 = @result["results"][0]["kana2"]
         @area.kana3 = @result["results"][0]["kana3"]
-        # if @result["status"] != 200
-        #   flash[:error] = "#{@result["message"]}"
-        #   render 'search' 
-        # end
       # 別のURLに飛ばされた場合
       when Net::HTTPRedirection
         @message = "Redirection: code=#{response.code} message=#{response.message}"
@@ -75,9 +72,9 @@ require 'json'
   def create
     @area = Area.new(area_params)
     if @area.save
-      redirect_to areas_path
+      redirect_to areas_path, notice: "地域を登録しました。"
     else
-      # flash[error] = "@{}"
+      flash.now[:alert] = "Validation failed: #{@area.errors.full_messages.join}"
       render :form
     end
   end
