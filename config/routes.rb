@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/areas', to: 'areas#index'
+  post '/areas/search', to: 'areas#form'
+  post '/areas', to: 'areas#create'
+  get '/areas/search', to: 'areas#search'
+  get '/areas/search', to: 'areas#form'
 end
