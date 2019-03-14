@@ -1,6 +1,6 @@
 class AreasController < ApplicationController
-require 'net/http'
-require 'uri'
+  require 'net/http'
+  require 'uri'
 
   def index
     @areas = Area.all
@@ -11,9 +11,9 @@ require 'uri'
   end
 
   def form
-    zip = params[:zipcode]
-    
     @area = Area.new
+    # 検索画面から送られてきた7桁の値をzipに格納
+    zip = params[:zipcode]  
     params = URI.encode_www_form({zipcode: zip })
     # URIを解析し、hostやportをバラバラに取得できるようにする
     uri = URI.parse("http://zipcloud.ibsnet.co.jp/api/search?#{params}")
